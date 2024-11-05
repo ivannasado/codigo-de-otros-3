@@ -1,4 +1,5 @@
-// Tenemos un li de productos
+// Tenemos un li de productos 
+//Se cambiaron los var por let
 
 const productos = [
   {nombre: "Zapato negro", tipo: "zapato", color: "negro", img: "./taco-negro.jpg"},
@@ -8,18 +9,18 @@ const productos = [
   {nombre: "Zapato rojo", tipo: "zapato", color: "rojo", img: "./zapato-rojo.jpg"}
 ]
 
-const li = document.getElementsByName("lista-de-productos")
+const li = document.querySelector("#lista-de-productos"); //Se agregó selector de id y se cambió por queryselector
 const $i = document.querySelector('.input');
 
 for (let i = 0; i < productos.length; i++) {
-  var d = document.createElement("div")
+  let d = document.createElement("div")
   d.classList.add("producto")
 
-  var ti = document.createElement("p")
+  let ti = document.createElement("p")
   ti.classList.add("titulo")
   ti.textContent = productos[i].nombre
   
-  var imagen = document.createElement("img");
+  let imagen = document.createElement("img");
   imagen.setAttribute('src', productos[i].img);
 
   d.appendChild(ti)
@@ -28,7 +29,7 @@ for (let i = 0; i < productos.length; i++) {
   li.appendChild(d)
 }
 
-displayProductos(productos)
+//displayProductos(productos) se quitó esta funcion que no estba definida
 const botonDeFiltro = document.querySelector("button");
 
 botonDeFiltro.onclick = function() {
@@ -41,14 +42,14 @@ botonDeFiltro.onclick = function() {
   const productosFiltrados = filtrado(productos, texto );
 
   for (let i = 0; i < productosFiltrados.length; i++) {
-    var d = document.createElement("div")
+    let d = document.createElement("div")
     d.classList.add("producto")
   
-    var ti = document.createElement("p")
+    let ti = document.createElement("p")
     ti.classList.add("titulo")
     ti.textContent = productosFiltrados[i].nombre
     
-    var imagen = document.createElement("img");
+    let imagen = document.createElement("img");
     imagen.setAttribute('src', productosFiltrados[i].img);
   
     d.appendChild(ti)
@@ -56,8 +57,10 @@ botonDeFiltro.onclick = function() {
   
     li.appendChild(d)
   }
+
+  $i.value = ""; //Se agrgó para limpiar la búsqueda y agregar otra búsqueda
 }
 
 const filtrado = (productos = [], texto) => {
-  return productos.filter(item => item.tipo.includes(texto) || item.color.includes(texto));
+  return productos.filter(item => item.tipo.includes(texto.toLowerCase()) || item.color.includes(texto.toLowerCase())); //se agregó toLowerCase para filtrar aunque esté escrita con mayúsculas
 }  
